@@ -1,6 +1,6 @@
 import java.util.*;
 public class Card{
-    private char[] suits = {'c','d','s','h'};
+    private char[] suits = {'C','D','S','H'};
     private char[] numbers = {'2','3','4','5','6','7','8','9','0','J','Q','K','A'};
     //For conversion
     private int suit;
@@ -40,6 +40,13 @@ public class Card{
 	setSuit(s);
 	setNumber(n);
     }    
-    //    private char suitToChar(int n){
-    //	return 
+    private char suitToChar(int n){
+	return suits[n];
+    }
+    private char numberToChar(int n){
+	return numbers[n];
+    }
+    public String toString(){
+	return ""+numberToChar(getNumber())+suitToChar(getSuit());
+    }
 }

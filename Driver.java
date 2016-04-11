@@ -13,5 +13,6 @@ public class Driver{
 	}catch(IllegalArgumentException e){
 	    System.out.println("Excpetion 2 works");
 	}
+	System.out.println(c1);
     }
 }
