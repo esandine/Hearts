@@ -10,20 +10,26 @@ public class Card{
     private int value;
     //How many points the card is worth
     //Mutators
-    public void setSuit(int s){
+    private void setSuit(int s){
 	if(s>3||s<0){
 	    throw new IllegalArgumentException();
 	}
 	suit=s;
     }
-    public void setNumber(int n){
+    private void setNumber(int n){
 	if(n<0||n>12){
 	    throw new IllegalArgumentException();
 	}
 	number = n;
     }
-    public void setValue(int v){
-	value = v;
+    private void setValue(){
+	if(getSuit()==3){
+	    value=1;
+	}else if((getSuit()==2)&&(getNumber()==10)){
+	    value=13;
+	}else{
+	    value = 0;
+	}
     }
     //Accessors
     public int getSuit(){
@@ -56,16 +62,33 @@ public class Card{
     private int charToNumber(char c){
 	return find(numbers,c);
     }
+    //Constructors
+    public Card(int n, int s){
+	try{
+	    setSuit(s);
+	}catch(IllegalArgumentException e){
+	    System.out.println("Suit: "+s);
+	}
+	try{
+	    setNumber(n);
+	}catch(IllegalArgumentException e){
+	    System.out.println("Number: "+n);
+	}
+	setValue();
+    }
+    public Card(char n, char s){
+	setNumber(charToNumber(n));
+	setSuit(charToSuit(s));
+	setValue();
+    }   
+    //toStrings
     public String toString(){
 	return ""+numberToChar(getNumber())+suitToChar(getSuit());
     }
-    //Constructors
-    public Card(int n, int s){
-	setSuit(s);
-	setNumber(n);
-    }
-    public Card(char n, char s){
-	setSuit(charToSuit(s));
-	setNumber(charToNumber(n));
+    public String toStringDebug(){
+	String retStr=toString();
+	retStr+=": ";
+	retStr+=getValue();
+	return retStr;
     }
 }

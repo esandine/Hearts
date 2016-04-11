@@ -1,20 +1,14 @@
+import java.util.*;
 public class Driver{
     public static void main(String[]args){
-	Card c1 = new Card(0,1);
-	System.out.println(c1.getSuit());
-	System.out.println(c1.getNumber());
-	try{
-	    Card c2 = new Card(5,0);
-	}catch(IllegalArgumentException e){
-	    System.out.println("Excpetion 1 works");
+	ArrayList<Card> deck=new ArrayList<Card>();
+	for(int i = 0;i<4;i++){
+	    for(int ii = 0;ii<13;ii++){
+		deck.add(new Card(ii,i));
+	    }
 	}
-	try{
-	    Card c2 = new Card(1,20);
-	}catch(IllegalArgumentException e){
-	    System.out.println("Excpetion 2 works");
+	for(Card c : deck){
+	    System.out.println(c.toStringDebug());
 	}
-	System.out.println(c1);
-	Card c3 = new Card('Q','S');
-	System.out.println(c3);
     }
 }
