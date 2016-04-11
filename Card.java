@@ -35,18 +35,37 @@ public class Card{
     public int getValue(){
 	return value;
     }
-    //Constructors
-    public Card(int s, int n){
-	setSuit(s);
-	setNumber(n);
-    }    
+    //Convertors
     private char suitToChar(int n){
 	return suits[n];
     }
     private char numberToChar(int n){
 	return numbers[n];
     }
+    private int find(char[] chars,char c){
+	for(int i = 0;i<chars.length;i++){
+	    if(chars[i]==c){
+		return i;
+	    }
+	}
+	throw new IllegalArgumentException();
+    }
+    private int charToSuit(char c){
+	return find(suits,c);
+    }
+    private int charToNumber(char c){
+	return find(numbers,c);
+    }
     public String toString(){
 	return ""+numberToChar(getNumber())+suitToChar(getSuit());
+    }
+    //Constructors
+    public Card(int n, int s){
+	setSuit(s);
+	setNumber(n);
+    }
+    public Card(char n, char s){
+	setSuit(charToSuit(s));
+	setNumber(charToNumber(n));
     }
 }

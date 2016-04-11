@@ -14,5 +14,7 @@ public class Driver{
 	    System.out.println("Excpetion 2 works");
 	}
 	System.out.println(c1);
+	Card c3 = new Card('Q','S');
+	System.out.println(c3);
     }
 }
