@@ -1,14 +1,17 @@
 import java.util.*;
 public class Card{
+    //Arrays for conversion
     private char[] suits = {'C','D','S','H'};
     private char[] numbers = {'2','3','4','5','6','7','8','9','0','J','Q','K','A'};
-    //For conversion
+
+    //Instance Variables
     private int suit;
     //0=club, 1=diamond, 2=spade, 3=heart
     private int number;
     //0=least valued card, 12=ace
     private int value;
     //How many points the card is worth
+
     //Mutators
     private void setSuit(int s){
 	if(s>3||s<0){
@@ -31,6 +34,7 @@ public class Card{
 	    value = 0;
 	}
     }
+
     //Accessors
     public int getSuit(){
 	return suit;
@@ -41,6 +45,7 @@ public class Card{
     public int getValue(){
 	return value;
     }
+
     //Convertors
     private char suitToChar(int n){
 	return suits[n];
@@ -62,6 +67,7 @@ public class Card{
     private int charToNumber(char c){
 	return find(numbers,c);
     }
+
     //Constructors
     public Card(int n, int s){
 	try{
@@ -81,6 +87,7 @@ public class Card{
 	setSuit(charToSuit(s));
 	setValue();
     }   
+
     //toStrings
     public String toString(){
 	return ""+numberToChar(getNumber())+suitToChar(getSuit());
