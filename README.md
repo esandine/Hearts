@@ -5,10 +5,10 @@ DEVLOG:
 04/10/2016
 Added Features:
 -Card class with number, suit, and value
+-Player class which has a hand of cards
 Bug Fixes:
 Bugs Added:
 Whats Next:
--A player with a deck of cards
 -A System for dealing the cards
 -Game play
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
