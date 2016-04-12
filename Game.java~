@@ -1,0 +1,22 @@
+public class Game{
+    public static void main(String[] args){
+	
+    }
+    public void deal(ArrayList<Player> players){
+	Player dealt;
+	int randIndex;
+	ArrayList<Card> deck = new ArrayList();
+	for(int suit = 0;suit<4;suit++){
+	    for(int number = 0;number<13;number++){
+		deck.add(new Card(number,suit));
+	    }
+	}
+	int i = 0;
+	while(deck.size()>0){
+	    dealt=players.get(i%players.size());
+	    randIndex=(int)(Math.random()*deck.size());
+	    dealt.add(deck(randIndex));
+	    deck.remove(randIndex);
+	}
+    }
+}
