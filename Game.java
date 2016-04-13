@@ -7,8 +7,11 @@ public class Game{
 	Players.add(new Player());	
 	Players.add(new Player());	
 	deal(Players);
-	System.out.println(printHands(Players));
+	//System.out.println(printHands(Players));
+	playTrick(Players,0);
     }
+    
+    //Deal function deals the cards randomly to all the players
     public static void deal(ArrayList<Player> players){
 	Player dealt;
 	int randIndex;
@@ -27,6 +30,8 @@ public class Game{
 	    i++;
 	}
     }
+
+    //printHands prints the hands of all the players
     public static String printHands(ArrayList<Player> players){
 	String retStr = "Hands: ";
 	Player currentPlayer;
@@ -39,5 +44,25 @@ public class Game{
 	    }	    
 	}
 	return retStr;
+    }
+    
+    //Plays a trick
+    public static int playTrick(ArrayList<Player> players, int start){
+	Trick currentTrick = new Trick();
+	Player p;
+	int index = start;
+	while(currentTrick.cardsPlayed()<players.size()){
+	    p=players.get(index);
+	    currentTrick.addCard(p.playCard(currentTrick));
+	    index++;
+	    if(index==players.size()){
+		index = 0;
+	    }
+	}
+	for(Card c : currentTrick.getCardsPlayed()){
+	    System.out.println(c.toStringDebug());
+	}
+	System.out.println(currentTrick.getTrump().toStringDebug());
+	return 0;
     }
 }

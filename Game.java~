@@ -34,8 +34,8 @@ public class Game{
 	    retStr+="\nPlayer "+i+":";
 	    currentPlayer=players.get(i);
 	    for(int ii = 0;ii<currentPlayer.cardsInHand();ii++){
+		retStr+="\n";
 		retStr+=currentPlayer.card(ii);
-		retStr+=",";
 	    }	    
 	}
 	return retStr;

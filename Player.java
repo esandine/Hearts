@@ -20,6 +20,9 @@ public class Player{
     public int getPointsRound(){
 	return pointsRound;
     }
+    private ArrayList<Card> getHand(){
+	return hand;
+    }
     
     //Mutators
     public void setPoints(int n){
@@ -41,16 +44,33 @@ public class Player{
 	hand.add(c);
 	return true;
     }
-    public int selectCard(){
-	return (int)(Math.random()*hand.size());
+    public Card selectCard(Trick t){
+	ArrayList<Card> l = playableCards(t);
+	return l.get((int)(Math.random()*l.size()));
     }
-    public Card playCard(){
-	return hand.remove(selectCard());
+    public Card playCard(Trick t){
+	Card c = selectCard(t);
+	hand.remove(c);
+	return c;
     }
     public int cardsInHand(){
 	return hand.size();
     }
     public String card(int i){
 	return hand.get(i).toStringDebug();
+    }
+    private ArrayList<Card> playableCards(Trick t){
+	ArrayList<Card> retArray = new ArrayList<Card>();
+	for(Card c : getHand()){
+	    if((t.cardsPlayed()==0)||(c.getSuit()==t.getTrump().getSuit())){
+		retArray.add(c);
+	    }
+	}
+	if(retArray.size()==0){
+	    for(Card c : getHand()){
+		retArray.add(c);
+	    }
+	}
+	return retArray;
     }
 }

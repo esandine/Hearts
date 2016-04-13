@@ -2,32 +2,27 @@ import java.util.*;
 public class Trick{
     //Instance Variables
     private ArrayList<Card> cardsPlayed;
-    private Player lead;
     private Card trump;
 
     //Constructors
-    public Trick(ArrayList<Card> cardsPlayed,Player lead,Card trump){
+    public Trick(ArrayList<Card> cardsPlayed,Card trump){
         this.cardsPlayed=cardsPlayed;
-        this.lead=lead;
 	this.trump=trump;
     }
-    public Trick(Player p){
+    public Trick(){
 	cardsPlayed=new ArrayList<Card>();
-	lead=p;
 	trump=new Card();
     }
 
     //Accessors
-    public ArrayList<Card> getCardsPlayer(){
+    public ArrayList<Card> getCardsPlayed(){
 	return cardsPlayed;
-    }
-    public Player getLead(){
-	return lead;
     }
     public Card getTrump(){
 	return trump;
     }
-    public int getCardsPlayed(){
+    //Returns number of cardsPlayed in the Trick so far
+    public int cardsPlayed(){
 	return cardsPlayed.size();
     }
 
@@ -37,7 +32,7 @@ public class Trick{
 	    trump=c;
 	}
 	cardsPlayed.add(c);
-	if((c.getSuit()==trump.getSuit())&&(c.getValue()>trump.getValue())){
+	if((c.getSuit()==trump.getSuit())&&(c.getNumber()>trump.getNumber())){
 	    trump = c;
 	}
     }
