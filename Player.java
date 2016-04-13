@@ -26,6 +26,7 @@ public class Player{
 
     //Hand functions
     public boolean addCard(Card c){
+	c.setOwner(this);
 	hand.add(c);
 	return true;
     }
@@ -39,6 +40,6 @@ public class Player{
 	return hand.size();
     }
     public String card(int i){
-	return hand.get(i).toString();
+	return hand.get(i).toStringDebug();
     }
 }

@@ -35,7 +35,7 @@ public class Card{
 	    value = 0;
 	}
     }
-    private void setOwner(Player p){
+    public void setOwner(Player p){
 	owner=p;
     }
 
@@ -105,6 +105,8 @@ public class Card{
 	String retStr=toString();
 	retStr+=": ";
 	retStr+=getValue();
+	retStr+=" is owned by";
+	retStr+=getOwner();
 	return retStr;
     }
 }
