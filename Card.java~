@@ -95,8 +95,11 @@ public class Card{
 	setSuit(charToSuit(s));
 	setValue();
 	setOwner(new Player());
-    }   
-
+    
+    }
+    public Card(){
+	this(0,0);
+    }
     //toStrings
     public String toString(){
 	return ""+numberToChar(getNumber())+suitToChar(getSuit());

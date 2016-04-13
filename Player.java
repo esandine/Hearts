@@ -5,6 +5,8 @@ public class Player{
     //hand is the Cards in the players hand
     private int points;
     //points is the number of points a player has
+    private int pointsRound;
+    //points in a single round
 
     //Constructors
     public Player(){
@@ -15,6 +17,9 @@ public class Player{
     public int getPoints(){
 	return points;
     }
+    public int getPointsRound(){
+	return pointsRound;
+    }
     
     //Mutators
     public void setPoints(int n){
@@ -22,6 +27,12 @@ public class Player{
     }
     public void addPoints(int n){
 	setPoints(getPoints()+n);
+    }
+    public void setPointsRound(int n){
+	pointsRound=n;
+    }
+    public void addPointsRound(int n){
+	setPoints(getPointsRound()+n);
     }
 
     //Hand functions

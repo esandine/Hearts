@@ -12,6 +12,7 @@ public class Card{
     private int value;
     //How many points the card is worth
     private Player owner;
+    //Who has played the Card
 
     //Mutators
     private void setSuit(int s){
@@ -100,6 +101,7 @@ public class Card{
     public Card(){
 	this(0,0);
     }
+
     //toStrings
     public String toString(){
 	return ""+numberToChar(getNumber())+suitToChar(getSuit());
