@@ -11,6 +11,7 @@ public class Card{
     //0=least valued card, 12=ace
     private int value;
     //How many points the card is worth
+    private Player owner;
 
     //Mutators
     private void setSuit(int s){
@@ -34,6 +35,9 @@ public class Card{
 	    value = 0;
 	}
     }
+    public void setOwner(Player p){
+	owner=p;
+    }
 
     //Accessors
     public int getSuit(){
@@ -44,6 +48,9 @@ public class Card{
     }
     public int getValue(){
 	return value;
+    }
+    public Player getOwner(){
+	return owner;
     }
 
     //Convertors
@@ -81,11 +88,13 @@ public class Card{
 	    System.out.println("Number: "+n);
 	}
 	setValue();
+	setOwner(new Player());
     }
     public Card(char n, char s){
 	setNumber(charToNumber(n));
 	setSuit(charToSuit(s));
 	setValue();
+	setOwner(new Player());
     }   
 
     //toStrings
@@ -96,6 +105,8 @@ public class Card{
 	String retStr=toString();
 	retStr+=": ";
 	retStr+=getValue();
+	retStr+=" is owned by";
+	retStr+=getOwner();
 	return retStr;
     }
 }

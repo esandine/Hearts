@@ -1,0 +1,12 @@
+public class Trick{
+    ArrayList<Card> cardsPlayed;
+    ArrayList<Player> players;
+    int leadSuit;
+    public Trick(ArrayList<Card> cardsPlayed,ArrayList<Player> players int lead\Suit){
+        this.cardsPlayed=cardsPlayer;
+        this.players=players;
+        this.leadSuit=leadSuit;
+    }
+}
+
+
