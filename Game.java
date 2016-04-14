@@ -6,7 +6,7 @@ public class Game{
 	Players.add(new Player());	
 	Players.add(new Player());	
 	Players.add(new Player());	
-	playRound(Players);
+	playGame(Players);
 	printPoints(Players);
 	//System.out.println(printHands(Players));
     }
@@ -49,7 +49,7 @@ public class Game{
 	return retStr;
     }
     
-    //Plays a trick
+   //Plays a trick
     public static Player playTrick(ArrayList<Player> players, Player start){
 	Trick currentTrick = new Trick();
 	Player p;
@@ -61,11 +61,11 @@ public class Game{
 	    if(index==players.size()){
 		index = 0;
 	    }
-	}
+	}/*
 	for(Card c : currentTrick.getCardsPlayed()){
 	    System.out.println(c.toStringDebug());
 	}
-	System.out.println(currentTrick.getTrump().toStringDebug());
+	System.out.println(currentTrick.getTrump().toStringDebug());*/
 	currentTrick.addPoints();
 	return currentTrick.getTrump().getOwner();
     }
@@ -97,15 +97,30 @@ public class Game{
 	for(int i = 0;i<Players.size();i++){
 	    p=Players.get(i);
 	    if(p.getPointsRound()==26){
-		for(int ii = 0;i<Players.size();ii++){
+		for(int ii = 0;ii<Players.size();ii++){
 		    if(i!=ii){
 			Players.get(ii).addPoints(26);
+			System.out.println("Shot the moon");
 		    }
 		}
+		p.setPointsRound(0);
 	    }else{
 		p.addPoints(p.getPointsRound());
 		p.setPointsRound(0);
 	    }
+	}
+    }
+    public static boolean notOver(ArrayList<Player> players){
+	for(Player p : players){
+	    if(p.getPoints()>100){
+		return false;
+	    }
+	}
+	return true;
+    }
+    public static void playGame(ArrayList<Player> players){
+	while(notOver(players)){
+	    playRound(players);
 	}
     }
 }
