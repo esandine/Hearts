@@ -8,7 +8,7 @@ public class Game{
 	Players.add(new Player());	
 	deal(Players);
 	//System.out.println(printHands(Players));
-	playTrick(Players,0);
+	playTrick(Players,lead(Players));
     }
     
     //Deal function deals the cards randomly to all the players
@@ -31,6 +31,9 @@ public class Game{
 	}
     }
 
+
+
+
     //printHands prints the hands of all the players
     public static String printHands(ArrayList<Player> players){
 	String retStr = "Hands: ";
@@ -47,7 +50,7 @@ public class Game{
     }
     
     //Plays a trick
-    public static int playTrick(ArrayList<Player> players, int start){
+    public static Player playTrick(ArrayList<Player> players, int start){
 	Trick currentTrick = new Trick();
 	Player p;
 	int index = start;
@@ -63,6 +66,17 @@ public class Game{
 	    System.out.println(c.toStringDebug());
 	}
 	System.out.println(currentTrick.getTrump().toStringDebug());
-	return 0;
+	
+	return currentTrick.getTrump().getOwner();
+    }
+    public static int lead(ArrayList<Player> players){
+	for(Player p : players){
+	    for(Card c : p.getHand()){
+		if((c.getNumber()==0)&&(c.getSuit()==0)){
+		    return players.indexOf(p);
+		}
+	    }
+	}
+	throw new IndexOutOfBoundsException();
     }
 }

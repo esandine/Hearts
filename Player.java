@@ -20,10 +20,9 @@ public class Player{
     public int getPointsRound(){
 	return pointsRound;
     }
-    private ArrayList<Card> getHand(){
+    public ArrayList<Card> getHand(){
 	return hand;
     }
-    
     //Mutators
     public void setPoints(int n){
 	points=n;
@@ -46,6 +45,11 @@ public class Player{
     }
     public Card selectCard(Trick t){
 	ArrayList<Card> l = playableCards(t);
+	for(Card c : l){
+	    if((c.getNumber()==0)&&(c.getSuit()==0)){
+		return c;
+	    }
+	}
 	return l.get((int)(Math.random()*l.size()));
     }
     public Card playCard(Trick t){
