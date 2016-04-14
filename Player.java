@@ -34,7 +34,7 @@ public class Player{
 	pointsRound=n;
     }
     public void addPointsRound(int n){
-	setPoints(getPointsRound()+n);
+	setPointsRound(getPointsRound()+n);
     }
 
     //Hand functions

@@ -36,6 +36,12 @@ public class Trick{
 	    trump = c;
 	}
     }
+    public void addPoints(){
+	for(Card c : getCardsPlayed()){
+	    getTrump().getOwner().addPointsRound(c.getValue());
+	    System.out.println("This just happened");
+	}
+    }
 }
 
 
