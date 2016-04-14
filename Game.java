@@ -1,9 +1,5 @@
 import java.util.*;
 public class Game{
-    public static void main(String[] args){
-	completeGame(10000);
-    }
-    
     //Deal function deals the cards randomly to all the players
     public static void deal(ArrayList<Player> players){
 	Player dealt;
