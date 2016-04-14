@@ -2,6 +2,19 @@
 Hearts Video Game
 DEVLOG:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+04/13/2016
+Added Features:
+-Completed Trick, Card, and Player classes for functionality
+-Added Game methods so it is now possible to play a complete game of hearts
+-Made driver that allows the game to be played to a total
+Bug Fixes:
+-All bugs fixed
+Bugs Added:
+-none
+Whats Next:
+-Attempt new Strategies, such as greedy
+-Start research paper
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 04/12/2016
 Added Features:
 -New trick class that keeps track of a current trick
@@ -32,9 +45,4 @@ Bugs Added:
 Whats Next:
 -A System for dealing the cards
 -Game play
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-XX/XX/XXXX
-Added Features:
-Bug Fixes:
-Bugs Added:
-Whats Next:
+Start
