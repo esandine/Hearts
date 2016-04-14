@@ -1,14 +1,7 @@
 import java.util.*;
 public class Game{
     public static void main(String[] args){
-	ArrayList<Player> Players= new ArrayList<Player>();
-	Players.add(new Player());	
-	Players.add(new Player());	
-	Players.add(new Player());	
-	Players.add(new Player());	
-	playGame(Players);
-	printPoints(Players);
-	//System.out.println(printHands(Players));
+	completeGame(10000);
     }
     
     //Deal function deals the cards randomly to all the players
@@ -49,7 +42,7 @@ public class Game{
 	return retStr;
     }
     
-   //Plays a trick
+   //Plays a single trick
     public static Player playTrick(ArrayList<Player> players, Player start){
 	Trick currentTrick = new Trick();
 	Player p;
@@ -69,6 +62,8 @@ public class Game{
 	currentTrick.addPoints();
 	return currentTrick.getTrump().getOwner();
     }
+
+    //Determines the lead player at the beginning of the game
     public static Player lead(ArrayList<Player> players){
 	for(Player p : players){
 	    for(Card c : p.getHand()){
@@ -79,6 +74,8 @@ public class Game{
 	}
 	throw new IndexOutOfBoundsException();
     }
+
+    //Plays a single round of 13 tricks
     public static void playRound(ArrayList<Player> Players){
 	deal(Players);	
 	Player lead = lead(Players);
@@ -92,6 +89,8 @@ public class Game{
 	    System.out.println(p.getPoints());
 	}
     }
+
+    //updates the points after a round of 13 tricks
     public static void updatePoints(ArrayList<Player> Players){
 	Player p;
 	for(int i = 0;i<Players.size();i++){
@@ -100,27 +99,41 @@ public class Game{
 		for(int ii = 0;ii<Players.size();ii++){
 		    if(i!=ii){
 			Players.get(ii).addPoints(26);
-			System.out.println("Shot the moon");
+			//System.out.println("Shot the moon");
 		    }
 		}
-		p.setPointsRound(0);
 	    }else{
 		p.addPoints(p.getPointsRound());
-		p.setPointsRound(0);
 	    }
+	    p.setPointsRound(0);
 	}
     }
-    public static boolean notOver(ArrayList<Player> players){
+
+    //Checks if anyone has won the game
+    public static boolean notOver(ArrayList<Player> players, int total){
 	for(Player p : players){
-	    if(p.getPoints()>100){
+	    if(p.getPoints()>total){
 		return false;
 	    }
 	}
 	return true;
     }
-    public static void playGame(ArrayList<Player> players){
-	while(notOver(players)){
+
+    //Plays a complete game
+    public static void playGame(ArrayList<Player> players, int total){
+	while(notOver(players,total)){
 	    playRound(players);
 	}
+    }
+
+    public static void completeGame(int total){
+	ArrayList<Player> Players= new ArrayList<Player>();
+	Players.add(new Player());	
+	Players.add(new Player());	
+	Players.add(new Player());	
+	Players.add(new Player());	
+	playGame(Players,total);
+	printPoints(Players);
+	//System.out.println(printHands(Players));
     }
 }
