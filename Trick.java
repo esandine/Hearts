@@ -39,7 +39,7 @@ public class Trick{
     public void addPoints(){
 	for(Card c : getCardsPlayed()){
 	    getTrump().getOwner().addPointsRound(c.getValue());
-	    System.out.println("This just happened");
+	    //System.out.println("This just happened");
 	}
     }
 }

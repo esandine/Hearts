@@ -85,10 +85,27 @@ public class Game{
 	while(lead.cardsInHand()>0){
 	    lead=playTrick(Players,lead);
 	}
+	updatePoints(Players);
     }
     public static void printPoints(ArrayList<Player> Players){
 	for(Player p : Players){
-	    System.out.println(p.getPointsRound());
+	    System.out.println(p.getPoints());
+	}
+    }
+    public static void updatePoints(ArrayList<Player> Players){
+	Player p;
+	for(int i = 0;i<Players.size();i++){
+	    p=Players.get(i);
+	    if(p.getPointsRound()==26){
+		for(int ii = 0;i<Players.size();ii++){
+		    if(i!=ii){
+			Players.get(ii).addPoints(26);
+		    }
+		}
+	    }else{
+		p.addPoints(p.getPointsRound());
+		p.setPointsRound(0);
+	    }
 	}
     }
 }
