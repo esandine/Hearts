@@ -50,11 +50,11 @@ public class Game{
 	    if(index==players.size()){
 		index = 0;
 	    }
-	}/*
+	}
 	for(Card c : currentTrick.getCardsPlayed()){
 	    System.out.println(c.toStringDebug());
 	}
-	System.out.println(currentTrick.getTrump().toStringDebug());*/
+	System.out.println(currentTrick.getTrump().toStringDebug());
 	currentTrick.addPoints();
 	return currentTrick.getTrump().getOwner();
     }

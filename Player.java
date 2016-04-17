@@ -55,6 +55,10 @@ public class Player{
     public Card playCard(Trick t){
 	Card c = selectCard(t);
 	hand.remove(c);
+	if(!(t.getHeartsBroken()||(c.getSuit()<3))){
+	    t.setHeartsBroken(true);
+	    System.out.println("Hearts have been broken");
+	}
 	return c;
     }
     public int cardsInHand(){
@@ -66,7 +70,12 @@ public class Player{
     private ArrayList<Card> playableCards(Trick t){
 	ArrayList<Card> retArray = new ArrayList<Card>();
 	for(Card c : getHand()){
-	    if((t.cardsPlayed()==0)||(c.getSuit()==t.getTrump().getSuit())){
+	    if(	t.cardsPlayed()==0){
+		if(t.getHeartsBroken()||c.getSuit()<3){
+		    retArray.add(c);
+		}
+	    }
+	    if((c.getSuit()==t.getTrump().getSuit())){
 		retArray.add(c);
 	    }
 	}
