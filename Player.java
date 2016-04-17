@@ -7,11 +7,13 @@ public class Player{
     //points is the number of points a player has
     private int pointsRound;
     //points in a single round
+    private boolean heartsBroken;
+    //WHether or not hearts have been broken
 
     //Constructors
     public Player(){
 	hand = new ArrayList<Card>();
-	points = 0;
+	heartsBroken=false;
     }
     //Accessors
     public int getPoints(){
@@ -22,6 +24,9 @@ public class Player{
     }
     public ArrayList<Card> getHand(){
 	return hand;
+    }
+    public boolean getHeartsBroken(){
+	return heartsBroken;
     }
     //Mutators
     public void setPoints(int n){
@@ -35,6 +40,12 @@ public class Player{
     }
     public void addPointsRound(int n){
 	setPointsRound(getPointsRound()+n);
+    }
+    public void setHeartsBroken(boolean b){
+	heartsBroken=b;
+    }
+    public void breakHearts(){
+	setHeartsBroken(true);
     }
 
     //Hand functions
@@ -55,9 +66,8 @@ public class Player{
     public Card playCard(Trick t){
 	Card c = selectCard(t);
 	hand.remove(c);
-	if(!(t.getHeartsBroken()||(c.getSuit()<3))){
-	    t.setHeartsBroken(true);
-	    System.out.println("Hearts have been broken");
+	if((c.getSuit()==3)&&(!getHeartsBroken())){
+	    breakHearts();
 	}
 	return c;
     }
@@ -70,18 +80,27 @@ public class Player{
     private ArrayList<Card> playableCards(Trick t){
 	ArrayList<Card> retArray = new ArrayList<Card>();
 	for(Card c : getHand()){
-	    if(	t.cardsPlayed()==0){
-		if(t.getHeartsBroken()||c.getSuit()<3){
-		    retArray.add(c);
-		}
-	    }
-	    if((c.getSuit()==t.getTrump().getSuit())){
+	    if((t.cardsPlayed()==0)||(c.getSuit()==t.getTrump().getSuit())){
 		retArray.add(c);
 	    }
 	}
 	if(retArray.size()==0){
 	    for(Card c : getHand()){
 		retArray.add(c);
+	    }
+	}
+	if(getHeartsBroken()){
+	    for(Card c : retArray){
+		if(c.getSuit==3){
+		    retArray.remove(c);
+		}
+	    }
+	}
+	if((t.getTrump().getSuit()==0)&&(t.getTrump().getNumber()==0)){
+	    for(Card c : retArray){
+		if((c.getSuit()==2)&&(c.getSuit()==10)){
+		    retArray.remove(c);
+		}
 	    }
 	}
 	return retArray;
