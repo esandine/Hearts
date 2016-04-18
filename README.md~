@@ -2,6 +2,17 @@
 Hearts Video Game
 DEVLOG:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+04/17/2016
+Added Features:
+-Breaking Hearts is now a thing
+-No dirt on the first round
+Bug Fixes:
+Bugs Added:
+-Breaking/playing hearts does not work correctly
+Whats Next:
+-Make better edescriptions of the game in toString()
+-debug
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 04/13/2016
 Added Features:
 -Completed Trick, Card, and Player classes for functionality
