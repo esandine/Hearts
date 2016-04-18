@@ -9,11 +9,17 @@ public class Player{
     //points in a single round
     private boolean heartsBroken;
     //WHether or not hearts have been broken
+    private String name;
+    //Name of the player
 
     //Constructors
-    public Player(){
+    public Player(String s){
+	setName(s);
 	hand = new ArrayList<Card>();
 	heartsBroken=false;
+    }
+    public Player(){
+	this("Player");
     }
     //Accessors
     public int getPoints(){
@@ -27,6 +33,9 @@ public class Player{
     }
     public boolean getHeartsBroken(){
 	return heartsBroken;
+    }
+    public String getName(){
+	return name;
     }
     //Mutators
     public void setPoints(int n){
@@ -47,7 +56,9 @@ public class Player{
     public void breakHearts(){
 	setHeartsBroken(true);
     }
-
+    public void setName(String s){
+	name = s;
+    }
     //Hand functions
     public boolean addCard(Card c){
 	c.setOwner(this);
@@ -81,19 +92,14 @@ public class Player{
 	ArrayList<Card> retArray = new ArrayList<Card>();
 	for(Card c : getHand()){
 	    if((t.cardsPlayed()==0)||(c.getSuit()==t.getTrump().getSuit())){
-		retArray.add(c);
+		if(getHeartsBroken()||c.getSuit()<3){
+		    retArray.add(c);
+		}
 	    }
 	}
 	if(retArray.size()==0){
 	    for(Card c : getHand()){
 		retArray.add(c);
-	    }
-	}
-	if(getHeartsBroken()){
-	    for(Card c : retArray){
-		if(c.getSuit==3){
-		    retArray.remove(c);
-		}
 	    }
 	}
 	if((t.getTrump().getSuit()==0)&&(t.getTrump().getNumber()==0)){
@@ -104,5 +110,10 @@ public class Player{
 	    }
 	}
 	return retArray;
+    }
+
+    //ToString
+    public String toString(){
+	return name;
     }
 }

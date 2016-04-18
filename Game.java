@@ -81,9 +81,9 @@ public class Game{
 	}
 	updatePoints(Players);
     }
-    public static void printPoints(ArrayList<Player> Players){
+    public static void printPoints(ArrayList<Player> Players, boolean debug){
 	for(Player p : Players){
-	    System.out.println(p.getPoints());
+	    debug(p.getPoints()+": "+p.getName(),debug);
 	}
     }
 
@@ -136,14 +136,20 @@ public class Game{
 	}
     }
 
-    public static void completeGame(int total){
+    public static void completeGame(int total, boolean debug){
 	ArrayList<Player> Players= new ArrayList<Player>();
-	Players.add(new Player());	
-	Players.add(new Player());	
-	Players.add(new Player());	
-	Players.add(new Player());	
+	Players.add(new Player("Player 1"));	
+	Players.add(new Player("Player 2"));	
+	Players.add(new Player("Player 3"));	
+	Players.add(new Player("Player 4"));	
+	debug("Game Started",debug);
 	playGame(Players,total);
-	printPoints(Players);
+	printPoints(Players,debug);
 	//System.out.println(printHands(Players));
+    }
+    public static void debug(Object o, boolean debug){
+	if(debug){
+	    System.out.println(o);
+	}
     }
 }

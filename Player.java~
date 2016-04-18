@@ -7,11 +7,19 @@ public class Player{
     //points is the number of points a player has
     private int pointsRound;
     //points in a single round
+    private boolean heartsBroken;
+    //WHether or not hearts have been broken
+    private String name;
+    //Name of the player
 
     //Constructors
-    public Player(){
+    public Player(String s){
+	setName(s);
 	hand = new ArrayList<Card>();
-	points = 0;
+	heartsBroken=false;
+    }
+    public Player(){
+	this("Player");
     }
     //Accessors
     public int getPoints(){
@@ -22,6 +30,12 @@ public class Player{
     }
     public ArrayList<Card> getHand(){
 	return hand;
+    }
+    public boolean getHeartsBroken(){
+	return heartsBroken;
+    }
+    public String getName(){
+	return name;
     }
     //Mutators
     public void setPoints(int n){
@@ -36,7 +50,15 @@ public class Player{
     public void addPointsRound(int n){
 	setPointsRound(getPointsRound()+n);
     }
-
+    public void setHeartsBroken(boolean b){
+	heartsBroken=b;
+    }
+    public void breakHearts(){
+	setHeartsBroken(true);
+    }
+    public void setName(String s){
+	name = s;
+    }
     //Hand functions
     public boolean addCard(Card c){
 	c.setOwner(this);
@@ -55,6 +77,9 @@ public class Player{
     public Card playCard(Trick t){
 	Card c = selectCard(t);
 	hand.remove(c);
+	if((c.getSuit()==3)&&(!getHeartsBroken())){
+	    breakHearts();
+	}
 	return c;
     }
     public int cardsInHand(){
@@ -74,7 +99,27 @@ public class Player{
 	    for(Card c : getHand()){
 		retArray.add(c);
 	    }
+	}/*
+	if(!getHeartsBroken()){
+	    for(int i = 0;i<retArray.size();i++){
+		if(retArray.get(i).getSuit()==3){
+		    retArray.remove(i);
+		    i--;
+		}
+	    }
 	}
+	if((t.getTrump().getSuit()==0)&&(t.getTrump().getNumber()==0)){
+	    for(Card c : retArray){
+		if((c.getSuit()==2)&&(c.getSuit()==10)){
+		    retArray.remove(c);
+		}
+	    }
+	    }*/
 	return retArray;
+    }
+
+    //ToString
+    public String toString(){
+	return name;
     }
 }

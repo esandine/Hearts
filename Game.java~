@@ -41,20 +41,21 @@ public class Game{
    //Plays a single trick
     public static Player playTrick(ArrayList<Player> players, Player start){
 	Trick currentTrick = new Trick();
-	Player p;
+	Player toPlay;
 	int index = players.indexOf(start);
 	while(currentTrick.cardsPlayed()<players.size()){
-	    p=players.get(index);
-	    currentTrick.addCard(p.playCard(currentTrick));
+	    toPlay=players.get(index);
+	    currentTrick.addCard(toPlay.playCard(currentTrick));
 	    index++;
 	    if(index==players.size()){
 		index = 0;
 	    }
-	}/*
+	}
 	for(Card c : currentTrick.getCardsPlayed()){
 	    System.out.println(c.toStringDebug());
 	}
-	System.out.println(currentTrick.getTrump().toStringDebug());*/
+	System.out.println(currentTrick.getTrump().toStringDebug());
+	breakHearts(players);
 	currentTrick.addPoints();
 	return currentTrick.getTrump().getOwner();
     }
@@ -105,6 +106,19 @@ public class Game{
 	}
     }
 
+    public static void breakHearts(ArrayList<Player> players){
+	for(Player p : players){
+	    if(p.getHeartsBroken()){
+		for(Player h : players){
+		    if(!h.getHeartsBroken()){
+			h.breakHearts();
+			//System.out.println("Broke hearts");
+
+		    }
+		}
+	    }
+	}	
+    }
     //Checks if anyone has won the game
     public static boolean notOver(ArrayList<Player> players, int total){
 	for(Player p : players){
