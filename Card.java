@@ -110,7 +110,7 @@ public class Card{
 	String retStr=toString();
 	retStr+=": ";
 	retStr+=getValue();
-	retStr+=" is owned by";
+	retStr+=" is owned by ";
 	retStr+=getOwner();
 	return retStr;
     }

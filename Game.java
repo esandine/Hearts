@@ -39,7 +39,7 @@ public class Game{
     }
     
    //Plays a single trick
-    public static Player playTrick(ArrayList<Player> players, Player start){
+    public static Player playTrick(ArrayList<Player> players, Player start, boolean debug){
 	Trick currentTrick = new Trick();
 	Player toPlay;
 	int index = players.indexOf(start);
@@ -52,9 +52,9 @@ public class Game{
 	    }
 	}
 	for(Card c : currentTrick.getCardsPlayed()){
-	    System.out.println(c.toStringDebug());
+	    debug(c.toStringDebug(),debug);
 	}
-	System.out.println(currentTrick.getTrump().toStringDebug());
+	debug("Winner of trick: "+currentTrick.getTrump().getOwner()+"\n",debug);
 	breakHearts(players);
 	currentTrick.addPoints();
 	return currentTrick.getTrump().getOwner();
@@ -73,13 +73,16 @@ public class Game{
     }
 
     //Plays a single round of 13 tricks
-    public static void playRound(ArrayList<Player> Players){
-	deal(Players);	
+    public static void playRound(ArrayList<Player> Players,boolean debug){
+	deal(Players);
 	Player lead = lead(Players);
+	int i = 1;
 	while(lead.cardsInHand()>0){
-	    lead=playTrick(Players,lead);
+	    debug("Trick "+i+", Starting Player: "+lead,debug);
+	    lead=playTrick(Players,lead,debug);
+	    i++;
 	}
-	updatePoints(Players);
+	updatePoints(Players,debug);
     }
     public static void printPoints(ArrayList<Player> Players, boolean debug){
 	for(Player p : Players){
@@ -88,7 +91,7 @@ public class Game{
     }
 
     //updates the points after a round of 13 tricks
-    public static void updatePoints(ArrayList<Player> Players){
+    public static void updatePoints(ArrayList<Player> Players, boolean debug){
 	Player p;
 	for(int i = 0;i<Players.size();i++){
 	    p=Players.get(i);
@@ -102,8 +105,14 @@ public class Game{
 	    }else{
 		p.addPoints(p.getPointsRound());
 	    }
-	    p.setPointsRound(0);
 	}
+	debug("Points:",debug);
+	for(Player P : Players){
+	    debug(""+P+": "+(P.getPoints()-P.getPointsRound())+" -> "+P.getPoints(),debug);
+	    P.setPointsRound(0);
+
+	}
+
     }
 
     public static void breakHearts(ArrayList<Player> players){
@@ -112,8 +121,6 @@ public class Game{
 		for(Player h : players){
 		    if(!h.getHeartsBroken()){
 			h.breakHearts();
-			//System.out.println("Broke hearts");
-
 		    }
 		}
 	    }
@@ -130,9 +137,10 @@ public class Game{
     }
 
     //Plays a complete game
-    public static void playGame(ArrayList<Player> players, int total){
+    public static void playGame(ArrayList<Player> players, int total,boolean debug){
 	while(notOver(players,total)){
-	    playRound(players);
+	    debug("New Round",debug);
+	    playRound(players,debug);
 	}
     }
 
@@ -143,7 +151,7 @@ public class Game{
 	Players.add(new Player("Player 3"));	
 	Players.add(new Player("Player 4"));	
 	debug("Game Started",debug);
-	playGame(Players,total);
+	playGame(Players,total,debug);
 	printPoints(Players,debug);
 	//System.out.println(printHands(Players));
     }
