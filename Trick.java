@@ -3,7 +3,6 @@ public class Trick{
     //Instance Variables
     private ArrayList<Card> cardsPlayed;
     private Card trump;
-
     //Constructors
     public Trick(ArrayList<Card> cardsPlayed,Card trump){
         this.cardsPlayed=cardsPlayed;

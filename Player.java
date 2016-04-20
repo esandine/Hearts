@@ -11,12 +11,14 @@ public class Player{
     //WHether or not hearts have been broken
     private String name;
     //Name of the player
+    private ArrayList<Card> cardsPlayed;
 
     //Constructors
     public Player(String s){
 	setName(s);
 	hand = new ArrayList<Card>();
 	heartsBroken=false;
+	cardsPlayed=new ArrayList<Card>();
     }
     public Player(){
 	this("Player");
@@ -36,6 +38,9 @@ public class Player{
     }
     public String getName(){
 	return name;
+    }
+    public ArrayList<Card> getCardsPlayed(){
+	return cardsPlayed;
     }
     //Mutators
     public void setPoints(int n){
@@ -59,6 +64,12 @@ public class Player{
     public void setName(String s){
 	name = s;
     }
+    public void addCardsPlayed(Card c){
+	cardsPlayed.add(c);
+    }
+    public void clearCardsPlayed(){
+	cardsPlayed.clear();
+    }
     //Hand functions
     public boolean addCard(Card c){
 	c.setOwner(this);
@@ -77,6 +88,7 @@ public class Player{
     public Card playCard(Trick t){
 	Card c = selectCard(t);
 	hand.remove(c);
+	addCardsPlayed(c);
 	if((c.getSuit()==3)&&(!getHeartsBroken())){
 	    breakHearts();
 	}

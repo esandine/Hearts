@@ -83,10 +83,17 @@ public class Game{
 	    i++;
 	}
 	updatePoints(Players,debug);
+	for(Player p : Players){
+	    debug(p,debug);
+	    for(Card c : p.getCardsPlayed()){
+		debug(c,debug);
+	    }
+	    p.clearCardsPlayed();
+	}
     }
     public static void printPoints(ArrayList<Player> Players, boolean debug){
 	for(Player p : Players){
-	    debug(p.getPoints()+": "+p.getName(),debug);
+	    debug(p.getPoints()+": "+p.getName(),true);
 	}
     }
 

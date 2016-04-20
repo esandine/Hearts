@@ -11,12 +11,14 @@ public class Player{
     //WHether or not hearts have been broken
     private String name;
     //Name of the player
+    private ArrayList<Card> cardsPlayed;
 
     //Constructors
     public Player(String s){
 	setName(s);
 	hand = new ArrayList<Card>();
 	heartsBroken=false;
+	cardsPlayed=new ArrayList<Card>();
     }
     public Player(){
 	this("Player");
@@ -36,6 +38,9 @@ public class Player{
     }
     public String getName(){
 	return name;
+    }
+    public ArrayList<Card> getCardsPlayed(){
+	return cardsPlayed;
     }
     //Mutators
     public void setPoints(int n){
@@ -59,6 +64,9 @@ public class Player{
     public void setName(String s){
 	name = s;
     }
+    public void addCardsPlayed(Card c){
+	cardsPlayed.add(c);
+    }
     //Hand functions
     public boolean addCard(Card c){
 	c.setOwner(this);
@@ -77,6 +85,7 @@ public class Player{
     public Card playCard(Trick t){
 	Card c = selectCard(t);
 	hand.remove(c);
+	addCardsPlayed(c);
 	if((c.getSuit()==3)&&(!getHeartsBroken())){
 	    breakHearts();
 	}
@@ -92,20 +101,14 @@ public class Player{
 	ArrayList<Card> retArray = new ArrayList<Card>();
 	for(Card c : getHand()){
 	    if((t.cardsPlayed()==0)||(c.getSuit()==t.getTrump().getSuit())){
-		retArray.add(c);
+		if(getHeartsBroken()||c.getSuit()<3){
+		    retArray.add(c);
+		}
 	    }
 	}
 	if(retArray.size()==0){
 	    for(Card c : getHand()){
 		retArray.add(c);
-	    }
-	}/*
-	if(!getHeartsBroken()){
-	    for(int i = 0;i<retArray.size();i++){
-		if(retArray.get(i).getSuit()==3){
-		    retArray.remove(i);
-		    i--;
-		}
 	    }
 	}
 	if((t.getTrump().getSuit()==0)&&(t.getTrump().getNumber()==0)){
@@ -114,7 +117,7 @@ public class Player{
 		    retArray.remove(c);
 		}
 	    }
-	    }*/
+	}
 	return retArray;
     }
 

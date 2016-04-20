@@ -1,0 +1,5 @@
+public class Round(){
+    private ArrayList<Player> players;
+    private ArrayList<ArrayList> cardsPlayed;
+    private boolean heartsBroken;
+}
