@@ -6,12 +6,11 @@ DEVLOG:
 Added Features:
 -Breaking Hearts is now a thing
 -No dirt on the first round
+-Added a bunch of debug statements
 Bug Fixes:
 Bugs Added:
--Breaking/playing hearts does not work correctly
 Whats Next:
--Make better edescriptions of the game in toString()
--debug
+-ALGORITHMS!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 04/13/2016
 Added Features:

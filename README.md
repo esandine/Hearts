@@ -2,6 +2,17 @@
 Hearts Video Game
 DEVLOG:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+04/19/2016
+Added Features:
+-Each player now keeps track of the cards played every trick
+-Each player has a strategy that determines the selectCard method's function
+Bug Fixes:
+-Nonde
+Bugs Added:
+-Added a few exception
+Whats Next:
+-ALGORITHMS!-should be easier to implement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 04/17/2016
 Added Features:
 -Breaking Hearts is now a thing
