@@ -5,6 +5,10 @@ public class Driver{
 	if(args.length>0){
 	    total=Integer.parseInt(args[0]);
 	}
-	Game.completeGame(total);
+	if(args.length>1){
+	    Game.completeGame(total,true);
+	}else{
+	    Game.completeGame(total,false);
+	}
     }
 }

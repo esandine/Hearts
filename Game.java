@@ -151,12 +151,12 @@ public class Game{
 	}
     }
 
-    public static void completeGame(int total, boolean debug){
+    public static void completeGame(int total, String s1, String s2, String s3, String s4, boolean debug){
 	ArrayList<Player> Players= new ArrayList<Player>();
-	Players.add(new Player("Player 1"));	
-	Players.add(new Player("Player 2"));	
-	Players.add(new Player("Player 3"));	
-	Players.add(new Player("Player 4"));	
+	Players.add(new Player("Player 1",s1));	
+	Players.add(new Player("Player 2",s2));	
+	Players.add(new Player("Player 3",s3));	
+	Players.add(new Player("Player 4",s4));	
 	debug("Game Started",debug);
 	playGame(Players,total,debug);
 	printPoints(Players,debug);
