@@ -9,6 +9,6 @@ lowSelect v. highSelect: lowSelect
 highselect v. random: random
 highSelect v. lowSelect: low
 highSelect v. random v. lowSelect: RANDOM
-
+greedySelect v. anything: greedy wins by a large margin
 
 

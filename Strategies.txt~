@@ -4,5 +4,11 @@ Strategies:
 3) highSelect - always selects the highest card from playable cards
 4) greedySelect - if you have cards of the lead suit, lowSelect, if not high select
 Victors:
-lowSelect
-randomSelect
+lowSelect v. random: random
+lowSelect v. highSelect: lowSelect
+highselect v. random: random
+highSelect v. lowSelect: low
+highSelect v. random v. lowSelect: RANDOM
+
+
+
