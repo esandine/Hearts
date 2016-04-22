@@ -91,7 +91,13 @@ public class Player{
 	if(getStrategy().equals("random")){
 	    return randomSelect(t);
 	}
-	throw new IllegalArgumentException("Not valid Strategy");
+	else if(getStrategy().equals("low")){
+	    return lowSelect(t);
+	}
+	else if(getStrategy().equals("high")){
+	    return highSelect(t);
+	}
+	throw new IllegalArgumentException("Not valid Strategy"+getStrategy()+"hello");
     }
     public Card playCard(Trick t){
 	Card c = selectCard(t);
@@ -147,6 +153,7 @@ public class Player{
 	}
 	return false;
     }
+
     private Card findLead(Trick t){
 	ArrayList<Card> l = playableCards(t);
 	for(Card c : l){
@@ -160,6 +167,31 @@ public class Player{
 	ArrayList<Card> l = playableCards(t);
 	return l.get((int)(Math.random()*l.size()));
     }
-    
+
+    private Card lowSelect(Trick t){
+	ArrayList<Card> l = playableCards(t);
+	Card retCard = l.get(0);
+	for(int i = 0;i<l.size();i++){
+	    if((l.get(i).getNumber()<retCard.getNumber()||
+		((l.get(i).getNumber()==l.get(i).getNumber())&&
+		 (l.get(i).getSuit()<retCard.getSuit())))){
+		retCard = l.get(i);
+	    }
+	}
+	return retCard;
+    }
+
+    private Card highSelect(Trick t){
+	ArrayList<Card> l = playableCards(t);
+	Card retCard = l.get(0);
+	for(int i = 0;i<l.size();i++){
+	    if((l.get(i).getNumber()>retCard.getNumber()||
+		((l.get(i).getNumber()==l.get(i).getNumber())&&
+		 (l.get(i).getSuit()>retCard.getSuit())))){
+		retCard = l.get(i);
+	    }
+	}
+	return retCard;
+    }
     
 }

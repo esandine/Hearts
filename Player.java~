@@ -12,16 +12,18 @@ public class Player{
     private String name;
     //Name of the player
     private ArrayList<Card> cardsPlayed;
+    private String strategy;
 
     //Constructors
-    public Player(String s){
-	setName(s);
+    public Player(String n, String s){
+	setName(n);
+	setStrategy(s);
 	hand = new ArrayList<Card>();
 	heartsBroken=false;
 	cardsPlayed=new ArrayList<Card>();
     }
     public Player(){
-	this("Player");
+	this("Player","random");
     }
     //Accessors
     public int getPoints(){
@@ -41,6 +43,9 @@ public class Player{
     }
     public ArrayList<Card> getCardsPlayed(){
 	return cardsPlayed;
+    }
+    public String getStrategy(){
+	return strategy;
     }
     //Mutators
     public void setPoints(int n){
@@ -64,6 +69,9 @@ public class Player{
     public void setName(String s){
 	name = s;
     }
+    public void setStrategy(String s){
+	strategy=s;
+    }
     public void addCardsPlayed(Card c){
 	cardsPlayed.add(c);
     }
@@ -77,13 +85,13 @@ public class Player{
 	return true;
     }
     public Card selectCard(Trick t){
-	ArrayList<Card> l = playableCards(t);
-	for(Card c : l){
-	    if((c.getNumber()==0)&&(c.getSuit()==0)){
-		return c;
-	    }
+	if(isLead(t)){
+	    return findLead(t);
 	}
-	return l.get((int)(Math.random()*l.size()));
+	if(getStrategy().equals("random")){
+	    return randomSelect(t);
+	}
+	throw new IllegalArgumentException("Not valid Strategy");
     }
     public Card playCard(Trick t){
 	Card c = selectCard(t);
@@ -128,4 +136,30 @@ public class Player{
     public String toString(){
 	return name;
     }
+    
+    //Strategies
+    private boolean isLead(Trick t){
+	ArrayList<Card> l = playableCards(t);
+	for(Card c : l){
+	    if((c.getNumber()==0)&&(c.getSuit()==0)){
+		return true;
+	    }
+	}
+	return false;
+    }
+    private Card findLead(Trick t){
+	ArrayList<Card> l = playableCards(t);
+	for(Card c : l){
+	    if((c.getNumber()==0)&&(c.getSuit()==0)){
+		return c;
+	    }
+	}
+	throw new IllegalStateException();
+    }
+    private Card randomSelect(Trick t){
+	ArrayList<Card> l = playableCards(t);
+	return l.get((int)(Math.random()*l.size()));
+    }
+    
+    
 }
