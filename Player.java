@@ -97,6 +97,9 @@ public class Player{
 	else if(getStrategy().equals("high")){
 	    return highSelect(t);
 	}
+	else if(getStrategy().equals("greedy")){
+	    return greedySelect(t);
+	}
 	throw new IllegalArgumentException("Not valid Strategy"+getStrategy()+"hello");
     }
     public Card playCard(Trick t){
@@ -193,5 +196,13 @@ public class Player{
 	}
 	return retCard;
     }
-    
+
+    private Card greedySelect(Trick t){
+	ArrayList<Card> l = playableCards(t);
+	if((t.cardsPlayed()==0)||l.get(0).getSuit()==t.getTrump().getSuit()){
+	    return lowSelect(t);
+	}else{
+	    return highSelect(t);
+	}
+    }
 }
