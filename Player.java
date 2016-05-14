@@ -7,19 +7,15 @@ public class Player{
     //points is the number of points a player has
     private int pointsRound;
     //points in a single round
-    private boolean heartsBroken;
-    //WHether or not hearts have been broken
     private String name;
     //Name of the player
     private ArrayList<Card> cardsPlayed;
     private String strategy;
-
     //Constructors
     public Player(String n, String s){
 	setName(n);
 	setStrategy(s);
 	hand = new ArrayList<Card>();
-	heartsBroken=false;
 	cardsPlayed=new ArrayList<Card>();
     }
     public Player(){
@@ -34,9 +30,6 @@ public class Player{
     }
     public ArrayList<Card> getHand(){
 	return hand;
-    }
-    public boolean getHeartsBroken(){
-	return heartsBroken;
     }
     public String getName(){
 	return name;
@@ -60,12 +53,6 @@ public class Player{
     public void addPointsRound(int n){
 	setPointsRound(getPointsRound()+n);
     }
-    public void setHeartsBroken(boolean b){
-	heartsBroken=b;
-    }
-    public void breakHearts(){
-	setHeartsBroken(true);
-    }
     public void setName(String s){
 	name = s;
     }
@@ -84,31 +71,29 @@ public class Player{
 	hand.add(c);
 	return true;
     }
-    public Card selectCard(Trick t){
-	if(isLead(t)){
-	    return findLead(t);
+    public Card selectCard(Round r){
+	Trick t = r.getCurrentTrick();
+	if(isLead(r)){
+	    return findLead(r);
 	}
 	if(getStrategy().equals("random")){
-	    return randomSelect(t);
+	    return randomSelect(r);
 	}
 	else if(getStrategy().equals("low")){
-	    return lowSelect(t);
+	    return lowSelect(r);
 	}
 	else if(getStrategy().equals("high")){
-	    return highSelect(t);
+	    return highSelect(r);
 	}
 	else if(getStrategy().equals("greedy")){
-	    return greedySelect(t);
+	    return greedySelect(r);
 	}
 	throw new IllegalArgumentException("Not valid Strategy"+getStrategy()+"hello");
     }
-    public Card playCard(Trick t){
-	Card c = selectCard(t);
+    public Card playCard(Round r){
+	Card c = selectCard(r);
 	hand.remove(c);
 	addCardsPlayed(c);
-	if((c.getSuit()==3)&&(!getHeartsBroken())){
-	    breakHearts();
-	}
 	return c;
     }
     public int cardsInHand(){
@@ -117,11 +102,12 @@ public class Player{
     public String card(int i){
 	return hand.get(i).toStringDebug();
     }
-    private ArrayList<Card> playableCards(Trick t){
+    private ArrayList<Card> playableCards(Round r){
+	Trick t = r.getCurrentTrick();
 	ArrayList<Card> retArray = new ArrayList<Card>();
 	for(Card c : getHand()){
 	    if((t.cardsPlayed()==0)||(c.getSuit()==t.getTrump().getSuit())){
-		if(getHeartsBroken()||c.getSuit()<3){
+		if(r.getHeartsBroken()||c.getSuit()<3){
 		    retArray.add(c);
 		}
 	    }
@@ -147,8 +133,8 @@ public class Player{
     }
     
     //Strategies
-    private boolean isLead(Trick t){
-	ArrayList<Card> l = playableCards(t);
+    private boolean isLead(Round r){
+	ArrayList<Card> l = playableCards(r);
 	for(Card c : l){
 	    if((c.getNumber()==0)&&(c.getSuit()==0)){
 		return true;
@@ -157,8 +143,8 @@ public class Player{
 	return false;
     }
 
-    private Card findLead(Trick t){
-	ArrayList<Card> l = playableCards(t);
+    private Card findLead(Round r){
+	ArrayList<Card> l = playableCards(r);
 	for(Card c : l){
 	    if((c.getNumber()==0)&&(c.getSuit()==0)){
 		return c;
@@ -166,13 +152,12 @@ public class Player{
 	}
 	throw new IllegalStateException();
     }
-    private Card randomSelect(Trick t){
-	ArrayList<Card> l = playableCards(t);
+    private Card randomSelect(Round r){
+	ArrayList<Card> l = playableCards(r);
 	return l.get((int)(Math.random()*l.size()));
     }
-
-    private Card lowSelect(Trick t){
-	ArrayList<Card> l = playableCards(t);
+    private Card lowSelect(Round r){
+	ArrayList<Card> l = playableCards(r);
 	Card retCard = l.get(0);
 	for(int i = 0;i<l.size();i++){
 	    if((l.get(i).getNumber()<retCard.getNumber()||
@@ -184,8 +169,8 @@ public class Player{
 	return retCard;
     }
 
-    private Card highSelect(Trick t){
-	ArrayList<Card> l = playableCards(t);
+    private Card highSelect(Round r){
+	ArrayList<Card> l = playableCards(r);
 	Card retCard = l.get(0);
 	for(int i = 0;i<l.size();i++){
 	    if((l.get(i).getNumber()>retCard.getNumber()||
@@ -197,12 +182,12 @@ public class Player{
 	return retCard;
     }
 
-    private Card greedySelect(Trick t){
-	ArrayList<Card> l = playableCards(t);
-	if((t.cardsPlayed()==0)||l.get(0).getSuit()==t.getTrump().getSuit()){
-	    return lowSelect(t);
+    private Card greedySelect(Round r){
+	ArrayList<Card> l = playableCards(r);
+	if((r.getCurrentTrick().cardsPlayed()==0)||l.get(0).getSuit()==r.getCurrentTrick().getTrump().getSuit()){
+	    return lowSelect(r);
 	}else{
-	    return highSelect(t);
+	    return highSelect(r);
 	}
     }
 }
