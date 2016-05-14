@@ -59,8 +59,7 @@ public class Game{
 	    debug(c.toStringDebug(),debug);
 	}
 	debug("Winner of trick: "+currentTrick.getTrump().getOwner()+"\n",debug);
-	//breakHearts(players);
-	currentTrick.addPoints();
+	currentRound.addPointsTrick(currentTrick);
 	return currentTrick.getTrump().getOwner();
     }
 
@@ -88,7 +87,7 @@ public class Game{
 	    lead=playTrick(current,lead,debug);
 	    i++;
 	}
-	updatePoints(Players,debug);
+	current.addPointsRound();
 	for(Player p : Players){
 	    debug(p,debug);
 	    for(Card c : p.getCardsPlayed()){
@@ -104,7 +103,7 @@ public class Game{
     }
 
     //updates the points after a round of 13 tricks
-    public static void updatePoints(ArrayList<Player> Players, boolean debug){
+    /*public static void updatePoints(Round r,  boolean debug){
 	Player p;
 	for(int i = 0;i<Players.size();i++){
 	    p=Players.get(i);
@@ -126,7 +125,7 @@ public class Game{
 
 	}
 
-    }
+	}*/
 
     //Checks if anyone has won the game
     public static boolean notOver(ArrayList<Player> players, int total){
