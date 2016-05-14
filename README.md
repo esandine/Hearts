@@ -5,12 +5,17 @@ DEVLOG:
 05/13/2016
 Added Features:
 -Round class keeps track of data throughout the round
-
+-Round keeps track of Hearts being broken
+-Round keeps track of the starting player
+-Round keeps track of current points and shooting the moon
+-Round keeps track of the lead and starting player
 Bug Fixes:
--None
+-Strategies now take round as an input for more possible information
 Bugs Added:
--none
+-messy
+-need ot read through all the code
 Whats Next:
+-Clean up all the code
 -made a system for determining the average points per round
 -make a system for displaying the results of every matchup
 

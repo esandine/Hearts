@@ -2,6 +2,19 @@
 Hearts Video Game
 DEVLOG:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+05/13/2016
+Added Features:
+-Round class keeps track of data throughout the round
+
+Bug Fixes:
+-None
+Bugs Added:
+-none
+Whats Next:
+-made a system for determining the average points per round
+-make a system for displaying the results of every matchup
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 04/22/2016
 Added Features:
 -low select always chooses the lowest card
