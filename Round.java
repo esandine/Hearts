@@ -7,6 +7,7 @@ public class Round{
     private Trick currentTrick;
     private Player lead;
     private int numberTrick;
+    private ArrayList<ArrayList<Card>> cardsPlayed;
     //Constructors
     public Round(ArrayList<Player> p){
 	players = p;
@@ -14,6 +15,7 @@ public class Round{
 	heartsBroken = false;
 	currentTrick=new Trick();
 	startLead();
+	initializeCardsPlayed();
     }
     //Mutators
     public void breakHearts(){
@@ -48,6 +50,15 @@ public class Round{
     }
     public void incrementNumberTrick(){
 	numberTrick++;
+    }
+    public void addCardsPlayed(Card c){
+	cardsPlayed.get(players.indexOf(c.getOwner())).add(c);
+    }
+    private void initializeCardsPlayed(){
+	cardsPlayed=new ArrayList<ArrayList<Card>>();
+	for(int i = 0;i<players.size();i++){
+	    cardsPlayed.add(new ArrayList<Card>());
+	}
     }
     //Accessors
     public ArrayList<Player> getPlayers(){

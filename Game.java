@@ -66,13 +66,12 @@ public class Game{
 	    current.incrementNumberTrick();
 	}
 	current.addPointsRound();
-	for(Player p : Players){
+	/*for(Player p : Players){
 	    debug(p,debug);
 	    for(Card c : p.getCardsPlayed()){
 		debug(c,debug);
 	    }
-	    p.clearCardsPlayed();
-	}
+	    }*/
     }
     //Shows players earning points
     public static void printPoints(ArrayList<Player> Players, boolean debug){

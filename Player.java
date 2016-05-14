@@ -7,14 +7,12 @@ public class Player{
     //points is the number of points a player has
     private String name;
     //Name of the player
-    private ArrayList<Card> cardsPlayed;
     private String strategy;
     //Constructors
     public Player(String n, String s){
 	setName(n);
 	setStrategy(s);
 	hand = new ArrayList<Card>();
-	cardsPlayed=new ArrayList<Card>();
     }
     public Player(){
 	this("Player","random");
@@ -28,9 +26,6 @@ public class Player{
     }
     public String getName(){
 	return name;
-    }
-    public ArrayList<Card> getCardsPlayed(){
-	return cardsPlayed;
     }
     public String getStrategy(){
 	return strategy;
@@ -47,12 +42,6 @@ public class Player{
     }
     public void setStrategy(String s){
 	strategy=s;
-    }
-    public void addCardsPlayed(Card c){
-	cardsPlayed.add(c);
-    }
-    public void clearCardsPlayed(){
-	cardsPlayed.clear();
     }
     //Hand functions
     public boolean addCard(Card c){
@@ -82,7 +71,7 @@ public class Player{
 	    r.breakHearts();
 	}
 	hand.remove(c);
-	addCardsPlayed(c);
+	r.addCardsPlayed(c);
 	return c;
     }
     public int cardsInHand(){
