@@ -2,6 +2,20 @@
 Hearts Video Game
 DEVLOG:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+04/22/2016
+Added Features:
+-low select always chooses the lowest card
+-high select always chooses the highest card
+-greedy select chooses lowSelect if it is te beginning of a trick or you have suits to play, high select if it does not match the trump suit
+Bug Fixes:
+-None
+Bugs Added:
+-none
+Whats Next:
+-made a system for determining the average points per round
+-make a system for displaying the results of every matchup
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 04/19/2016
 Added Features:
 -Each player now keeps track of the cards played every trick
