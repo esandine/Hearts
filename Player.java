@@ -5,8 +5,6 @@ public class Player{
     //hand is the Cards in the players hand
     private int points;
     //points is the number of points a player has
-    private int pointsRound;
-    //points in a single round
     private String name;
     //Name of the player
     private ArrayList<Card> cardsPlayed;
@@ -24,9 +22,6 @@ public class Player{
     //Accessors
     public int getPoints(){
 	return points;
-    }
-    public int getPointsRound(){
-	return pointsRound;
     }
     public ArrayList<Card> getHand(){
 	return hand;
@@ -46,12 +41,6 @@ public class Player{
     }
     public void addPoints(int n){
 	setPoints(getPoints()+n);
-    }
-    public void setPointsRound(int n){
-	pointsRound=n;
-    }
-    public void addPointsRound(int n){
-	setPointsRound(getPointsRound()+n);
     }
     public void setName(String s){
 	name = s;
@@ -73,9 +62,6 @@ public class Player{
     }
     public Card selectCard(Round r){
 	Trick t = r.getCurrentTrick();
-	if(isLead(r)){
-	    return findLead(r);
-	}
 	if(getStrategy().equals("random")){
 	    return randomSelect(r);
 	}
@@ -108,7 +94,17 @@ public class Player{
     private ArrayList<Card> playableCards(Round r){
 	Trick t = r.getCurrentTrick();
 	ArrayList<Card> retArray = new ArrayList<Card>();
+	//First trick
+	if((r.getNumberTrick()==0)&&(this.equals(r.getLead()))){
+	    for(Card c : hand){
+		if((c.getSuit()==0)&&(c.getNumber()==0)){
+		    retArray.add(c);
+		}
+	    }
+	    return retArray;
+	}
 	for(Card c : getHand()){
+	    //You are the lead or match the lead
 	    if((t.cardsPlayed()==0)||(c.getSuit()==t.getTrump().getSuit())){
 		if(r.getHeartsBroken()||c.getSuit()<3){
 		    retArray.add(c);
@@ -136,25 +132,6 @@ public class Player{
     }
     
     //Strategies
-    private boolean isLead(Round r){
-	ArrayList<Card> l = playableCards(r);
-	for(Card c : l){
-	    if((c.getNumber()==0)&&(c.getSuit()==0)){
-		return true;
-	    }
-	}
-	return false;
-    }
-
-    private Card findLead(Round r){
-	ArrayList<Card> l = playableCards(r);
-	for(Card c : l){
-	    if((c.getNumber()==0)&&(c.getSuit()==0)){
-		return c;
-	    }
-	}
-	throw new IllegalStateException();
-    }
     private Card randomSelect(Round r){
 	ArrayList<Card> l = playableCards(r);
 	return l.get((int)(Math.random()*l.size()));

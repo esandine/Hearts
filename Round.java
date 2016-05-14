@@ -6,13 +6,14 @@ public class Round{
     private int[] pointsTaken;
     private Trick currentTrick;
     private Player lead;
+    private int numberTrick;
     //Constructors
     public Round(ArrayList<Player> p){
 	players = p;
 	pointsTaken = new int[p.size()];
 	heartsBroken = false;
 	currentTrick=new Trick();
-	lead=players.get(0);//FIx up later
+	startLead();
     }
     //Mutators
     public void breakHearts(){
@@ -45,6 +46,9 @@ public class Round{
     public void setLead(Player p){
 	lead = p;
     }
+    public void incrementNumberTrick(){
+	numberTrick++;
+    }
     //Accessors
     public ArrayList<Player> getPlayers(){
 	return players;
@@ -57,5 +61,18 @@ public class Round{
     }
     public Player getLead(){
 	return lead;
+    }
+    public int getNumberTrick(){
+	return numberTrick;
+    }
+    //Beginning of round functions:
+    private void startLead(){
+        for(Player p : players){
+            for(Card c : p.getHand()){
+                if((c.getNumber()==0)&&(c.getSuit()==0)){
+		    setLead(p);
+                }
+            }
+        }
     }
 }

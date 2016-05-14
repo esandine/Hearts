@@ -55,28 +55,15 @@ public class Game{
 	return currentTrick.getTrump().getOwner();
     }
 
-    //Determines the lead player at the beginning of the game
-    public static Player lead(ArrayList<Player> players){
-	for(Player p : players){
-	    for(Card c : p.getHand()){
-		if((c.getNumber()==0)&&(c.getSuit()==0)){
-		    return p;
-		}
-	    }
-	}
-	throw new IndexOutOfBoundsException();
-    }
-
     //Plays a single round of 13 tricks
     public static void playRound(ArrayList<Player> Players,boolean debug){
-	Round current = new Round(Players);
 	deal(Players);
-	int i = 1;
+	Round current = new Round(Players);
 	while(current.getLead().cardsInHand()>0){
-	    debug("Trick "+i+", Starting Player: "+current.getLead(),debug);
+	    debug("Trick "+current.getNumberTrick()+", Starting Player: "+current.getLead(),debug);
 	    current.resetCurrentTrick();
 	    current.setLead(playTrick(current,debug));
-	    i++;
+	    current.incrementNumberTrick();
 	}
 	current.addPointsRound();
 	for(Player p : Players){
@@ -87,37 +74,12 @@ public class Game{
 	    p.clearCardsPlayed();
 	}
     }
+    //Shows players earning points
     public static void printPoints(ArrayList<Player> Players, boolean debug){
 	for(Player p : Players){
 	    debug(p.getPoints()+": "+p.getName(),true);
 	}
     }
-
-    //updates the points after a round of 13 tricks
-    /*public static void updatePoints(Round r,  boolean debug){
-	Player p;
-	for(int i = 0;i<Players.size();i++){
-	    p=Players.get(i);
-	    if(p.getPointsRound()==26){
-		for(int ii = 0;ii<Players.size();ii++){
-		    if(i!=ii){
-			Players.get(ii).addPoints(26);
-			//System.out.println("Shot the moon");
-		    }
-		}
-	    }else{
-		p.addPoints(p.getPointsRound());
-	    }
-	}
-	debug("Points:",debug);
-	for(Player P : Players){
-	    debug(""+P+": "+(P.getPoints()-P.getPointsRound())+" -> "+P.getPoints(),debug);
-	    P.setPointsRound(0);
-
-	}
-
-	}*/
-
     //Checks if anyone has won the game
     public static boolean notOver(ArrayList<Player> players, int total){
 	for(Player p : players){
