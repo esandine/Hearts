@@ -92,6 +92,9 @@ public class Player{
     }
     public Card playCard(Round r){
 	Card c = selectCard(r);
+	if((!r.getHeartsBroken())&&(c.getSuit()==3)){
+	    r.breakHearts();
+	}
 	hand.remove(c);
 	addCardsPlayed(c);
 	return c;

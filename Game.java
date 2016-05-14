@@ -19,10 +19,6 @@ public class Game{
 	    i++;
 	}
     }
-
-
-
-
     //printHands prints the hands of all the players
     public static String printHands(ArrayList<Player> players){
 	String retStr = "Hands: ";
@@ -37,13 +33,12 @@ public class Game{
 	}
 	return retStr;
     }
-    
    //Plays a single trick
-    public static Player playTrick(Round currentRound, Player start, boolean debug){
+    public static Player playTrick(Round currentRound, boolean debug){
 	ArrayList<Player> players = currentRound.getPlayers();
 	Trick currentTrick = currentRound.getCurrentTrick();
 	Player toPlay;
-	int index = players.indexOf(start);
+	int index = players.indexOf(currentRound.getLead());
 	while(currentTrick.cardsPlayed()<players.size()){
 	    toPlay=players.get(index);
 	    currentTrick.addCard(toPlay.playCard(currentRound));
@@ -53,9 +48,6 @@ public class Game{
 	    }
 	}
 	for(Card c : currentTrick.getCardsPlayed()){
-	    if(c.getSuit()==3){
-		currentRound.breakHearts();
-	    }
 	    debug(c.toStringDebug(),debug);
 	}
 	debug("Winner of trick: "+currentTrick.getTrump().getOwner()+"\n",debug);
@@ -79,12 +71,11 @@ public class Game{
     public static void playRound(ArrayList<Player> Players,boolean debug){
 	Round current = new Round(Players);
 	deal(Players);
-	Player lead = lead(Players);
 	int i = 1;
-	while(lead.cardsInHand()>0){
-	    debug("Trick "+i+", Starting Player: "+lead,debug);
+	while(current.getLead().cardsInHand()>0){
+	    debug("Trick "+i+", Starting Player: "+current.getLead(),debug);
 	    current.resetCurrentTrick();
-	    lead=playTrick(current,lead,debug);
+	    current.setLead(playTrick(current,debug));
 	    i++;
 	}
 	current.addPointsRound();

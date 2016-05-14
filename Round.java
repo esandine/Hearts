@@ -5,12 +5,14 @@ public class Round{
     private boolean heartsBroken;
     private int[] pointsTaken;
     private Trick currentTrick;
+    private Player lead;
     //Constructors
     public Round(ArrayList<Player> p){
 	players = p;
 	pointsTaken = new int[p.size()];
 	heartsBroken = false;
 	currentTrick=new Trick();
+	lead=players.get(0);//FIx up later
     }
     //Mutators
     public void breakHearts(){
@@ -40,6 +42,9 @@ public class Round{
     public void resetCurrentTrick(){
 	currentTrick=new Trick();
     }
+    public void setLead(Player p){
+	lead = p;
+    }
     //Accessors
     public ArrayList<Player> getPlayers(){
 	return players;
@@ -49,5 +54,8 @@ public class Round{
     }
     public boolean getHeartsBroken(){
 	return heartsBroken;
+    }
+    public Player getLead(){
+	return lead;
     }
 }

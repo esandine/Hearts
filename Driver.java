@@ -1,7 +1,7 @@
 import java.util.*;
 public class Driver{
     public static void main(String[]args){
-	int total = 100;
+	int total;
 	if(args.length!=6){
 	    throw new IllegalArgumentException();
 	}else{
