@@ -34,11 +34,11 @@ public class Game{
 	return retStr;
     }
    //Plays a single trick
-    public static Player playTrick(Round currentRound, Player start, boolean debug){
+    public static Player playTrick(Round currentRound, boolean debug){
 	ArrayList<Player> players = currentRound.getPlayers();
 	Trick currentTrick = currentRound.getCurrentTrick();
 	Player toPlay;
-	int index = players.indexOf(start);
+	int index = players.indexOf(currentRound.getLead());
 	while(currentTrick.cardsPlayed()<players.size()){
 	    toPlay=players.get(index);
 	    currentTrick.addCard(toPlay.playCard(currentRound));
@@ -55,70 +55,30 @@ public class Game{
 	return currentTrick.getTrump().getOwner();
     }
 
-    //Determines the lead player at the beginning of the game
-    public static Player lead(ArrayList<Player> players){
-	for(Player p : players){
-	    for(Card c : p.getHand()){
-		if((c.getNumber()==0)&&(c.getSuit()==0)){
-		    return p;
-		}
-	    }
-	}
-	throw new IndexOutOfBoundsException();
-    }
-
     //Plays a single round of 13 tricks
     public static void playRound(ArrayList<Player> Players,boolean debug){
-	Round current = new Round(Players);
 	deal(Players);
-	Player lead = lead(Players);
-	int i = 1;
-	while(lead.cardsInHand()>0){
-	    debug("Trick "+i+", Starting Player: "+lead,debug);
+	Round current = new Round(Players);
+	while(current.getLead().cardsInHand()>0){
+	    debug("Trick "+current.getNumberTrick()+", Starting Player: "+current.getLead(),debug);
 	    current.resetCurrentTrick();
-	    lead=playTrick(current,lead,debug);
-	    i++;
+	    current.setLead(playTrick(current,debug));
+	    current.incrementNumberTrick();
 	}
 	current.addPointsRound();
-	for(Player p : Players){
+	/*for(Player p : Players){
 	    debug(p,debug);
 	    for(Card c : p.getCardsPlayed()){
 		debug(c,debug);
 	    }
-	    p.clearCardsPlayed();
-	}
+	    }*/
     }
+    //Shows players earning points
     public static void printPoints(ArrayList<Player> Players, boolean debug){
 	for(Player p : Players){
 	    debug(p.getPoints()+": "+p.getName(),true);
 	}
     }
-
-    //updates the points after a round of 13 tricks
-    /*public static void updatePoints(Round r,  boolean debug){
-	Player p;
-	for(int i = 0;i<Players.size();i++){
-	    p=Players.get(i);
-	    if(p.getPointsRound()==26){
-		for(int ii = 0;ii<Players.size();ii++){
-		    if(i!=ii){
-			Players.get(ii).addPoints(26);
-			//System.out.println("Shot the moon");
-		    }
-		}
-	    }else{
-		p.addPoints(p.getPointsRound());
-	    }
-	}
-	debug("Points:",debug);
-	for(Player P : Players){
-	    debug(""+P+": "+(P.getPoints()-P.getPointsRound())+" -> "+P.getPoints(),debug);
-	    P.setPointsRound(0);
-
-	}
-
-	}*/
-
     //Checks if anyone has won the game
     public static boolean notOver(ArrayList<Player> players, int total){
 	for(Player p : players){
@@ -129,12 +89,15 @@ public class Game{
 	return true;
     }
 
-    //Plays a complete game
-    public static void playGame(ArrayList<Player> players, int total,boolean debug){
+    //Plays a complete game, returns the nu,ber of rounds played
+    public static int playGame(ArrayList<Player> players, int total,boolean debug){
+	int rounds = 0;
 	while(notOver(players,total)){
 	    debug("New Round",debug);
 	    playRound(players,debug);
+	    rounds++;
 	}
+	return rounds;
     }
 
     public static void completeGame(int total, String s1, String s2, String s3, String s4, boolean debug){

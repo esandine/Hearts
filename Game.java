@@ -74,9 +74,9 @@ public class Game{
 	    }*/
     }
     //Shows players earning points
-    public static void printPoints(ArrayList<Player> Players, boolean debug){
+    public static void printPoints(ArrayList<Player> Players, boolean debug, int rounds){
 	for(Player p : Players){
-	    debug(p.getPoints()+": "+p.getName(),true);
+	    debug(p.getName()+" Total Points: "+p.getPoints()+ " Average points per round: "+((double)p.getPoints()/rounds),true);
 	}
     }
     //Checks if anyone has won the game
@@ -89,12 +89,15 @@ public class Game{
 	return true;
     }
 
-    //Plays a complete game
-    public static void playGame(ArrayList<Player> players, int total,boolean debug){
+    //Plays a complete game, returns the nu,ber of rounds played
+    public static int playGame(ArrayList<Player> players, int total,boolean debug){
+	int rounds = 0;
 	while(notOver(players,total)){
 	    debug("New Round",debug);
 	    playRound(players,debug);
+	    rounds++;
 	}
+	return rounds;
     }
 
     public static void completeGame(int total, String s1, String s2, String s3, String s4, boolean debug){
@@ -104,8 +107,8 @@ public class Game{
 	Players.add(new Player("Player 3",s3));	
 	Players.add(new Player("Player 4",s4));	
 	debug("Game Started",debug);
-	playGame(Players,total,debug);
-	printPoints(Players,debug);
+	int rounds = playGame(Players,total,debug);
+	printPoints(Players,debug,rounds);
 	//System.out.println(printHands(Players));
     }
     public static void debug(Object o, boolean debug){
